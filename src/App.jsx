@@ -2,27 +2,33 @@ import React, { useState } from 'react'
 import HeroSection from './assets/Components/HeroSection/HeroSection'
 import Services from './assets/Components/Services/Services'
 import Portfolio from './assets/Components/Portfolio/Portfolio'
-import Contact from './assets/Components/Contact/Contact'
+import Testimonials from './assets/Components/Testimonials/Testimonials'
+import About from './assets/Components/About/About'
 import Footer from './assets/Components/Footer/Footer'
 
-
 const App = () => {
-  // Move the state here so ALL components can see it
   const [isDarkMode, setIsDarkMode] = useState(true);
-
-  const toggleDarkMode = () => setIsDarkMode(prev => !prev);
+  // This is the "Master Switch" for the form
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <div>
-      {/* Pass the state and the toggle function to the Hero */}
-      <HeroSection isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      {/* HeroSection contains the actual Form UI */}
+      <HeroSection 
+        showPopup={showPopup} 
+        setShowPopup={setShowPopup} 
+      />
       
-      {/* Pass the state to Services so it knows to change color */}
-      <Services isDarkMode={isDarkMode} />
-      <Portfolio isDarkMode={isDarkMode} />
-      <Contact isDarkMode={isDarkMode}/>
-      <Footer isDarkMode={isDarkMode}/>
+      {/* Services just flips the switch to true */}
+      <Services setIsFormOpen={setShowPopup} />
       
+      {/* Portfolio just flips the switch to true */}
+      <Portfolio setIsFormOpen={setShowPopup} />
+
+      {/* Testimonials just flips the switch to true */}
+      <Testimonials setIsFormOpen={setShowPopup} />
+      <About setIsFormOpen={setShowPopup} />
+      <Footer setIsFormOpen={setShowPopup} />
     </div>
   )
 }
