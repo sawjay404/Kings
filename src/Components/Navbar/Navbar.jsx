@@ -1,137 +1,123 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, MapPin, Menu, X, Instagram } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, UserCircle, ChevronDown, Menu, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Added this
 
-const Navbar = ({ setIsFormOpen }) => {
-  const [scrolled, setScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate(); // 2. Initialized navigation
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'Our Team', href: '#about' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', href: '/' },
+    { name: 'Support Us', href: '#' },
+    { name: 'About', href: '#' },
+    { name: 'Classes', href: '#' },
+    { name: 'Contact', href: '#' },
+  ];
+
+  const policyLinks = [
+    { name: 'Terms & Conditions', href: '#' },
+    { name: 'Privacy Policy', href: '#' },
+    { name: 'Safeguarding', href: '#' },
+    { name: 'Child Protection', href: '#' },
   ];
 
   return (
-    <>
-      <header className="fixed top-0 w-full z-[100] transition-all duration-500">
-        {/* TOP BAR - High Visibility */}
-        <div className="bg-[#9CAF88] py-2 px-6 lg:px-12 flex justify-end items-center gap-6 text-white border-b border-white/10">
-          <a href="tel:2012274364" className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-widest">
-            <Phone size={14} strokeWidth={2.5} /> (201) 227-4364
-          </a>
-          <a href="#gallery" className="hidden sm:flex items-center gap-2 text-[12px] font-bold uppercase tracking-widest border-l border-white/20 pl-6">
-            <MapPin size={14} strokeWidth={2.5} /> Jersey City, NJ
-          </a>
+    <header className="fixed top-0 left-0 right-0 z-50 font-sans">
+      {/* Top Banner - Solid Gold */}
+      <div className="bg-[#d4af37] text-black text-[9px] md:text-xs py-2 text-center font-bold px-4 tracking-[0.2em] uppercase">
+        Psalm 24:7-8 - Open up, Gates! Let the King of Glory in! Who is He? The Lord, Strong and Mighty in Battle
+      </div>
+
+      {/* Main Nav */}
+      <nav className="bg-[#0b2b26] border-b border-white/10 px-6 py-4 flex items-center justify-between text-white transition-all duration-300">
+        
+        {/* Logo Section */}
+        <div className="flex items-center gap-3 group cursor-pointer" onClick={() => navigate('/')}>
+          <div className="w-12 h-12 bg-white rounded-full p-1 border-2 border-[#d4af37] transition-transform group-hover:scale-110">
+            <img src="/logo.jpg" alt="KADA Logo" className="w-full h-full object-contain rounded-full" />
+          </div>
+          <span className="hidden sm:block font-serif font-bold text-xl tracking-tighter text-white uppercase">KADA</span>
         </div>
 
-        {/* MAIN NAV */}
-        <nav className={`bg-[#F5F5E9]/95 backdrop-blur-md transition-all duration-500 ${scrolled ? 'py-3 shadow-lg' : 'py-6'}`}>
-          <div className="max-w-[1440px] mx-auto px-6 lg:px-12 flex justify-between items-center">
-            
-            <div className="flex flex-col">
-              <h1 className="text-3xl font-serif tracking-[0.15em] text-[#004B4D] leading-none">AURORA</h1>
-              <p className="text-[10px] tracking-[0.3em] text-[#9CAF88] font-black uppercase mt-1">Studio & Sanctuary</p>
-            </div>
-
-            {/* DESKTOP LINKS */}
-            <div className="hidden xl:flex items-center gap-10">
-              {navLinks.map((link) => (
-                <a key={link.name} href={link.href} className="text-[13px] font-bold uppercase tracking-[0.1em] text-[#004B4D]/70 hover:text-[#004B4D] transition-colors">
-                  {link.name}
+        {/* Desktop Links (Center-Right) */}
+        <div className="hidden lg:flex items-center gap-8 text-[10px] font-black uppercase tracking-[0.25em]">
+          {navLinks.map((link) => (
+            <a key={link.name} href={link.href} className="hover:text-[#d4af37] transition-all duration-300 relative group">
+              {link.name}
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#d4af37] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          ))}
+          
+          {/* Info Dropdown */}
+          <div className="relative group flex items-center gap-1 cursor-pointer hover:text-[#d4af37] transition-colors">
+            Info <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
+            <div className="absolute top-full left-0 mt-4 w-56 bg-[#0b2b26] border border-white/10 rounded-xl py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+              {policyLinks.map((policy) => (
+                <a key={policy.name} href={policy.href} className="block px-6 py-2 text-white/60 hover:text-[#d4af37] hover:bg-white/5 text-[9px] tracking-widest transition-all">
+                  {policy.name}
                 </a>
               ))}
             </div>
+          </div>
+        </div>
 
-            {/* BUTTONS */}
-            <div className="flex items-center gap-4">
-              <button onClick={() => setIsFormOpen(true)} className="hidden md:block px-8 py-2.5 bg-[#004B4D] text-white text-[11px] font-bold uppercase tracking-widest rounded-full hover:bg-[#9CAF88] transition-all shadow-md">
-                Book Now
-              </button>
-              
-              {/* HUMBURGER BUTTON */}
-              <button 
-                className="xl:hidden p-2 text-[#004B4D]" 
-                onClick={() => setIsOpen(true)}
+        {/* Action Section: Search + Members Login */}
+        <div className="flex items-center gap-4 md:gap-6">
+          <Search size={18} className="cursor-pointer hover:text-[#d4af37] transition-colors hidden sm:block" />
+          
+          {/* MEMBERS LOGIN - Clickable now */}
+          <button 
+            onClick={() => navigate('/user-login')} 
+            className="flex items-center gap-2 bg-[#d4af37] text-black px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all active:scale-95 shadow-lg shadow-black/20"
+          >
+            <UserCircle size={16} />
+            <span className="hidden xs:inline">Members Login</span>
+            <span className="xs:hidden">Login</span>
+          </button>
+          
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="lg:hidden p-1 text-white hover:text-[#d4af37]"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Nav Overlay */}
+      <div className={`lg:hidden fixed inset-0 bg-[#0b2b26] transition-transform duration-500 z-[-1] ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="flex flex-col items-center justify-center h-full gap-8 text-center px-6">
+          <div className="flex flex-col gap-6">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-4xl font-serif italic text-white hover:text-[#d4af37] transition-colors"
               >
-                <Menu size={32} strokeWidth={1.5} />
-              </button>
-            </div>
+                {link.name}
+              </a>
+            ))}
           </div>
-        </nav>
-      </header>
-
-      {/* MOBILE DRAWER OVERLAY */}
-      <AnimatePresence>
-        {isOpen && (
-          <div className="fixed inset-0 z-[1001] overflow-hidden">
-            {/* Dark Backdrop */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="absolute inset-0 bg-[#004B4D]/40 backdrop-blur-sm"
-            />
-
-            {/* Side Drawer */}
-            <motion.div 
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-[85%] max-w-[400px] bg-[#F5F5E9] shadow-2xl p-10 flex flex-col justify-between"
-            >
-              {/* Close Button Inside Drawer */}
-              <div className="flex justify-end">
-                <button onClick={() => setIsOpen(false)} className="p-2 text-[#004B4D] hover:rotate-90 transition-transform duration-300">
-                  <X size={40} strokeWidth={1} />
-                </button>
-              </div>
-
-              {/* Menu Links */}
-              <div className="flex flex-col gap-8 mb-auto mt-12">
-                {navLinks.map((link, i) => (
-                  <motion.a
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-[#004B4D] font-serif text-5xl italic border-b border-[#004B4D]/5 pb-2 hover:text-[#9CAF88] transition-colors"
-                  >
-                    {link.name}
-                  </motion.a>
-                ))}
-              </div>
-
-              {/* Drawer Footer */}
-              <div className="flex flex-col gap-6 pt-10 border-t border-[#004B4D]/10">
-                <div className="flex gap-4 text-[#004B4D]">
-                  <Instagram size={24} />
-                  <span className="text-sm font-bold uppercase tracking-widest leading-6">@aurora.studios</span>
-                </div>
-                <button 
-                  onClick={() => { setIsOpen(false); setIsFormOpen(true); }}
-                  className="w-full py-5 bg-[#004B4D] text-white font-bold uppercase tracking-widest text-xs rounded-full shadow-lg"
-                >
-                  Book Appointment
-                </button>
-              </div>
-            </motion.div>
+          
+          <div className="h-[1px] w-24 bg-[#d4af37]/30" />
+          
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            {policyLinks.map((policy) => (
+              <a key={policy.name} href={policy.href} className="text-white/40 text-[9px] uppercase tracking-[0.2em] hover:text-[#d4af37]">
+                {policy.name}
+              </a>
+            ))}
           </div>
-        )}
-      </AnimatePresence>
-    </>
+
+          <div className="flex items-center gap-2 text-white/40 mb-4">
+            <Search size={16} />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Search Academy</span>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 };
 

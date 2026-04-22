@@ -1,20 +1,22 @@
 import React from 'react';
-import HeroSection from '../Components/HeroSection/HeroSection';
-import Services from '../Components/Services/Services';
-import Portfolio from '../Components/Portfolio/Portfolio';
-import Contact from '../Components/Contact/Contact';
+import HeroSection from '../Components/HeroSection/HeroSection'; // New Component
 import About from '../Components/About/About';
+import SupportUs from '../Components/Supportus/Supportus';
+import Classes from '../Components/Classes/Classes';
 
 const Home = ({ openForm }) => {
   return (
-    <main>
+    <main className="bg-white font-sans selection:bg-[#0b2b26] selection:text-white">
+      {/* High-End Hero with the "Box Break" Kid Image */}
       <HeroSection setIsFormOpen={openForm} />
-      <Services setIsFormOpen={openForm} />
-      <Portfolio setIsFormOpen={openForm} />
-      <About setIsFormOpen={openForm} />
+
+      {/* NEW: Announcements Section 
+          Placed right after Hero to catch attention for upcoming events/camps
+      */}
       
-      {/* Passing it to Contact as 'setIsFormOpen' */}
-      <Contact setIsFormOpen={openForm} />
+      <SupportUs />
+      <Classes />
+
     </main>
   );
 };
