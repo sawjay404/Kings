@@ -1,7 +1,7 @@
 import React from 'react';
 import HeroSection from '../Components/HeroSection/HeroSection'; // New Component
 import About from '../Components/About/About';
-import SupportUs from '../Components/Supportus/Supportus';
+import SupportUs from '../Components/SupportUs/SupportUs';
 import Classes from '../Components/Classes/Classes';
 
 const Home = ({ openForm }) => {
