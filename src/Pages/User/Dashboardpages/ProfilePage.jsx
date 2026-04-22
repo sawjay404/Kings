@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../../../lib/supabaseClient';
+import { supabase } from '../../../Lib_temp/supabaseClient';
 import { User, Shield, Stethoscope, Settings, Save, Edit2, CreditCard, Info } from 'lucide-react';
 
 const ProfilePage = () => {
