@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { supabase } from "./Lib/supabaseClient_temp"
+import { supabase } from "./Lib/supabaseClient"
 
 // Pages - Admin
 import AdminLogin from './Pages/Admin/Adminlogin';
