@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { supabase } from '../../../Lib_temp/supabaseClient';
+import { supabase } from '../../../Lib/supabaseClient';
 import UserRegister from '../UserRegister'; 
 
 const UserDashboard = () => {
